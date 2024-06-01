@@ -104,9 +104,12 @@ return {
 
     {
         "williamboman/mason-lspconfig.nvim",
-        config = function()
+        opts = function()
+          return require("mason")
+        end,
+        config = function(_, opts)
             require("mason-lspconfig").setup({
-                ensure_installed = { "lua_ls", "tsserver", "rust_analyzer" },
+                ensure_installed = opts.ensure_installed
             })
         end,
     },
@@ -116,6 +119,7 @@ return {
         lazy = false,
         config = function()
             require("nvnu.configs.lspconfig").defaults()
+            require("nvnu.configs.lspservers")
         end,
     },
 
