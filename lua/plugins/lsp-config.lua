@@ -9,7 +9,7 @@ return {
     "williamboman/mason-lspconfig.nvim",
     config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "tsserver" },
+        ensure_installed = { "lua_ls", "tsserver", "rust_analyzer" },
       })
     end,
   },
@@ -18,6 +18,11 @@ return {
     config = function()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
       local lspconfig = require("lspconfig")
+      -- rust
+      lspconfig.rust_analyzer.setup{
+        capabilities = capabilities
+      }
+
       -- lua_la
       lspconfig.lua_ls.setup({
         capabilities = capabilities,
