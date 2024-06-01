@@ -1,31 +1,25 @@
-vim.cmd("set expandtab")
-vim.cmd("set tabstop=2")
-vim.cmd("set softtabstop=2")
-vim.cmd("set shiftwidth=2")
+-- set global leader
 vim.g.mapleader = " "
-
--- disable netrw at the very start of your init.lua
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
 
 -- optionally enable 24-bit colour
 vim.opt.termguicolors = true
 
--- installing lazy
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
+-- bootstrap lazy and all plugins
+local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
+
+if not vim.loop.fs_stat(lazypath) then
+    local repo = "https://github.com/folke/lazy.nvim.git"
+    vim.fn.system { "git", "clone", "--filter=blob:none", repo, "--branch=stable", lazypath }
 end
+
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("plugins")
+local lazy_opts = {}
+local plugins = require("nvnu.plugins")
+require("lazy").setup(plugins, lazy_opts)
+require "nvnu.autocmds"
 
--- setup keymapping
-vim.keymap.set('n', '<C-n>', ':Neotree toggle<CR>', {})
+vim.schedule(function()
+    require "nvnu.mappings"
+    require "nvnu.options"
+end)
