@@ -1,4 +1,4 @@
-local config = require("nvconfig").ui.statusline
+local config = require("nvnu.nvconfig").ui.statusline
 local sep_style = config.separator_style
 local utils = require "nvnu.stl.utils"
 

@@ -1,6 +1,6 @@
 local cmp = require "cmp"
 
-local cmp_ui = require("nvconfig").ui.cmp
+local cmp_ui = require("nvnu.nvconfig").ui.cmp
 local cmp_style = cmp_ui.style
 
 local function border(hl_name)

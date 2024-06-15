@@ -18,14 +18,5 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-local plugins = require("nvnu.plugins")
+local plugins = require("init_nvnu")
 require("lazy").setup(plugins, {})
-
-require "nvnu.autocmds"
-vim.schedule(function()
-  require "nvnu.mappings"
-  require "nvnu.options"
-end)
-
-local nvconfig = require("nvconfig").ui
-vim.o.statusline = "%!v:lua.require('nvnu.stl." .. nvconfig.statusline.theme .. "')()"
