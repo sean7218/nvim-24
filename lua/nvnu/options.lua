@@ -5,6 +5,12 @@ local g = vim.g
 -------------------------------------- globals -----------------------------------------
 g.toggle_theme_icon = "   "
 
+-- disable netrw at the very start of your init.lua
+-- vim.g.loaded_netrw = 1
+-- vim.g.loaded_netrwPlugin = 1
+-- optionally enable 24-bit colour
+-- vim.opt.termguicolors = true
+
 -------------------------------------- options ------------------------------------------
 o.laststatus = 3
 o.showmode = false
@@ -39,6 +45,16 @@ o.splitright = true
 o.timeoutlen = 400
 o.undofile = true
 
+-- folding
+opt.foldmethod = "expr"
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+opt.foldcolumn = "0"
+opt.foldtext = ""
+opt.foldlevel = 99
+opt.foldlevelstart = 1
+opt.foldnestmax = 4
+opt.foldopen = ""
+
 -- interval for writing swap file to disk, also used by gitsigns
 o.updatetime = 250
 
@@ -46,10 +62,3 @@ o.updatetime = 250
 -- when cursor reaches end/beginning of line
 opt.whichwrap:append "<>[]hl"
 
--- g.mapleader = " "
-
--- disable some default providers
-g["loaded_node_provider"] = 0
-g["loaded_python3_provider"] = 0
-g["loaded_perl_provider"] = 0
-g["loaded_ruby_provider"] = 0

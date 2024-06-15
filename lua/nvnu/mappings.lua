@@ -1,5 +1,6 @@
 local map = vim.keymap.set
 
+
 map("i", "<C-b>", "<ESC>^i", { desc = "move beginning of line" })
 map("i", "<C-e>", "<End>", { desc = "move end of line" })
 map("i", "<C-h>", "<Left>", { desc = "move left" })
@@ -19,7 +20,6 @@ map("n", "<C-c>", "<cmd>%y+<CR>", { desc = "file copy whole" })
 
 map("n", "<leader>n", "<cmd>set nu!<CR>", { desc = "toggle line number" })
 map("n", "<leader>rn", "<cmd>set rnu!<CR>", { desc = "toggle relative number" })
-map("n", "<leader>ch", "<cmd>NvCheatsheet<CR>", { desc = "toggle nvcheatsheet" })
 
 map("n", "<leader>fm", function()
     require("conform").format { lsp_fallback = true }
@@ -31,25 +31,26 @@ map("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "lsp diagnostic locli
 -- tabufline
 map("n", "<leader>b", "<cmd>enew<CR>", { desc = "buffer new" })
 
-map("n", "<tab>", function()
-    -- require("nvchad.tabufline").next()
-end, { desc = "buffer goto next" })
+--map("n", "<tab>", function()
+--  vim.cmd("b#");
+-- end, { desc = "buffer toggle" })
 
-map("n", "<S-tab>", function()
-    -- require("nvchad.tabufline").prev()
-end, { desc = "buffer goto prev" })
+-- map("n", "<S-tab>", function()
+--   vim.cmd("bprevious");
+-- end, { desc = "buffer goto prev" })
 
 map("n", "<leader>x", function()
-    -- require("nvchad.tabufline").close_buffer()
-end, { desc = "buffer close" })
+  vim.cmd("bdelete");
+end, { desc = "buffer delete" })
 
 -- Comment
 map("n", "<leader>/", "gcc", { desc = "comment toggle", remap = true })
 map("v", "<leader>/", "gc", { desc = "comment toggle", remap = true })
 
 -- nvimtree
-map("n", "<C-n>", "<cmd>Neotree toggle<CR>", { desc = "Neotree toggle window" })
-map("n", "<leader>e", "<cmd>Neotree focus<CR>", { desc = "Neotree focus window" })
+map("n", "<C-n>", "<cmd>Ex<CR>", { desc = "Open NetrW" })
+-- map("n", "<C-n>", "<cmd>Neotree toggle<CR>", { desc = "Neotree toggle window" })
+-- map("n", "<leader>e", "<cmd>Neotree focus<CR>", { desc = "Neotree focus window" })
 
 -- telescope
 map("n", "<leader>fw", "<cmd>Telescope live_grep<CR>", { desc = "telescope live grep" })
@@ -70,50 +71,36 @@ map(
     { desc = "telescope find all files" }
 )
 
--- terminal
-map("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
-
--- new terminals
-map("n", "<leader>h", function()
-    -- require("nvchad.term").new { pos = "sp" }
-end, { desc = "terminal new horizontal term" })
-
-map("n", "<leader>v", function()
-    -- require("nvchad.term").new { pos = "vsp" }
-end, { desc = "terminal new vertical window" })
-
--- toggleable
-map({ "n", "t" }, "<A-v>", function()
-    -- require("nvchad.term").toggle { pos = "vsp", id = "vtoggleTerm" }
-end, { desc = "terminal toggleable vertical term" })
-
-map({ "n", "t" }, "<A-h>", function()
-    -- require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" }
-end, { desc = "terminal new horizontal term" })
-
-map({ "n", "t" }, "<A-i>", function()
-    -- require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
-end, { desc = "terminal toggle floating term" })
-
 -- whichkey
 map("n", "<leader>wK", "<cmd>WhichKey <CR>", { desc = "whichkey all keymaps" })
 
-map("n", "<leader>wk", function()
-    vim.cmd("WhichKey " .. vim.fn.input "WhichKey: ")
-end, { desc = "whichkey query lookup" })
-
 -- blankline
 map("n", "<leader>cc", function()
-    local config = { scope = {} }
-    config.scope.exclude = { language = {}, node_type = {} }
-    config.scope.include = { node_type = {} }
-    local node = require("ibl.scope").get(vim.api.nvim_get_current_buf(), config)
+  local config = { scope = {} }
+  config.scope.exclude = { language = {}, node_type = {} }
+  config.scope.include = { node_type = {} }
+  local node = require("ibl.scope").get(vim.api.nvim_get_current_buf(), config)
 
-    if node then
-        local start_row, _, end_row, _ = node:range()
-        if start_row ~= end_row then
-            vim.api.nvim_win_set_cursor(vim.api.nvim_get_current_win(), { start_row + 1, 0 })
-            vim.api.nvim_feedkeys("_", "n", true)
-        end
+  if node then
+    local start_row, _, end_row, _ = node:range()
+    if start_row ~= end_row then
+      vim.api.nvim_win_set_cursor(vim.api.nvim_get_current_win(), { start_row + 1, 0 })
+      vim.api.nvim_feedkeys("_", "n", true)
     end
+  end
 end, { desc = "blankline jump to current context" })
+
+------------------ Personal Favorites -----------------------
+map("n", "<A-DOWN>", "<cmd>m .+1<CR>==", { desc = "move lines down" })
+map("n", "<A-UP>", "<cmd>m .-2<CR>==", { desc = "move lines up" })
+
+map("v", "K", ":m '<-2<CR>gv=gv", { desc = "move lines up" })
+map("v", "J", ":m '>+1<CR>gv=gv", { desc = "move lines down" })
+
+map("n", "[b", ":bprevious<CR>", { desc = "buffer previous" })
+map("n", "]b", ":bnext<CR>", { desc = "buffer next" })
+
+map("n", "[q", ":cprevious<CR>", { desc = "quicklist previous" })
+map("n", "]q", ":cnext<CR>", { desc = "quicklist next" })
+
+map("n", "<C-p>", ":Telescope find_files<CR>", { desc = "Go to File" })
