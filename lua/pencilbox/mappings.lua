@@ -62,9 +62,19 @@ map("n", "<leader>pt", "<cmd>Telescope terms<CR>", { desc = "telescope pick hidd
 map("n", "<leader>th", "<cmd>Telescope themes<CR>", { desc = "telescope nvchad themes" })
 map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "telescope find files" })
 map(
-    "n",
-    "<leader>fa",
-    "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>",
-    { desc = "telescope find all files" }
+  "n",
+  "<leader>fa",
+  "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>",
+  { desc = "telescope find all files" }
 )
 
+-- global lsp mappings
+map("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "lsp diagnostic loclist" })
+
+-- code action
+map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code action" })
+
+-- formatting
+map("n", "<leader>fm", function()
+  require("conform").format { lsp_fallback = true }
+end, { desc = "format files" })
