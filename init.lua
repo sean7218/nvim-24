@@ -1,7 +1,3 @@
--- set global leader
-vim.g.mapleader = " "
-
--- bootstrap lazy and all plugins
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 
 if not vim.loop.fs_stat(lazypath) then
@@ -18,5 +14,10 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-local plugins = require("init_nvnu")
+-- nvnu module
+-- local plugins = require("init_nvnu")
+-- require("lazy").setup(plugins, {})
+
+-- pencilbox module
+local plugins = require("init_pencilbox")
 require("lazy").setup(plugins, {})
