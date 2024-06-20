@@ -19,3 +19,8 @@ opt.wrap = false -- Disable line wrap
 
 opt.grepprg = "rg --vimgrep"
 
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+
+vim.opt.foldlevel = 99 -- min fold level will be closed by default
+vim.opt.foldlevelstart = 8 -- fold level when opening a buffer

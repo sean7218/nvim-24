@@ -1,12 +1,12 @@
 local map = vim.keymap.set
 
 -- move in insert mode
-map("i", "<C-b>", "<ESC>^i", { desc = "move beginning of line" })
-map("i", "<C-e>", "<End>", { desc = "move end of line" })
-map("i", "<C-h>", "<Left>", { desc = "move left" })
-map("i", "<C-l>", "<Right>", { desc = "move right" })
-map("i", "<C-j>", "<Down>", { desc = "move down" })
-map("i", "<C-k>", "<Up>", { desc = "move up" })
+-- map("i", "<C-b>", "<ESC>^i", { desc = "move beginning of line" })
+-- map("i", "<C-e>", "<End>", { desc = "move end of line" })
+-- map("i", "<C-h>", "<Left>", { desc = "move left" })
+-- map("i", "<C-l>", "<Right>", { desc = "move right" })
+-- map("i", "<C-j>", "<Down>", { desc = "move down" })
+-- map("i", "<C-k>", "<Up>", { desc = "move up" })
 
 -- Move to window using the <ctrl> hjkl keys
 map("n", "<C-h>", "<C-w>h", { desc = "Go to Left Window", remap = true })
